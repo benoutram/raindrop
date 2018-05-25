@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+    echo "Usage : $0 [now|day|night]"
+    exit
+fi
+
+adb shell setprop persist.sys.timezone Europe/London
+adb shell settings put system time_12_24 24
+
+case "$1" in
+now) adb shell date $(date +%m%d%H%M%Y.%S) 
+    ;;
+day) adb shell date 062211002017.00 
+    ;;
+night) adb shell date 062219002017.00 
+    ;;
+*) echo "Command name $1 not recognised"
+   exit 1
+   ;;
+esac
